@@ -59,11 +59,11 @@
                                         "description": "Validation Error",
                                         "value": {
                                             "errors": {
-                                                "username" : [
+                                                "username": [
                                                     "username must not be blank",
                                                     "username min 6 character"
                                                 ],
-                                                "name" : [
+                                                "name": [
                                                     "name must not be blank",
                                                     "name min 6 character"
                                                 ]
@@ -139,10 +139,10 @@
                     }
                 },
                 "responses": {
-                    "200":{
+                    "200": {
                         "description": "Success Login",
                         "content": {
-                            "application/json":{
+                            "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
@@ -181,7 +181,7 @@
                     {
                         "name": "Authorization",
                         "in": "header",
-                        "schema":{
+                        "schema": {
                             "properties": {
                                 "Authorization": {
                                     "type": "string"
@@ -194,7 +194,7 @@
                     "200": {
                         "description": "Success get Current User",
                         "content": {
-                            "application/json":{
+                            "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
@@ -228,7 +228,7 @@
                     {
                         "name": "Authorization",
                         "in": "header",
-                        "schema":{
+                        "schema": {
                             "properties": {
                                 "Authorization": {
                                     "type": "string"
@@ -237,7 +237,7 @@
                         }
                     }
                 ],
-                "requestBody":{
+                "requestBody": {
                     "description": "Update Current User",
                     "content": {
                         "application/json": {
@@ -259,7 +259,7 @@
                     "200": {
                         "description": "Success update User",
                         "content": {
-                            "application/json":{
+                            "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
@@ -295,7 +295,7 @@
                     {
                         "name": "Authorization",
                         "in": "header",
-                        "schema":{
+                        "schema": {
                             "properties": {
                                 "Authorization": {
                                     "type": "string"
@@ -308,7 +308,7 @@
                     "200": {
                         "description": "Success logout User",
                         "content": {
-                            "application/json":{
+                            "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
