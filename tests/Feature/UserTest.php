@@ -112,4 +112,139 @@ class UserTest extends TestCase
                 ]
             ]);
     }
+
+    public function testGetSuccess()
+    {
+        $this->seed([UserSeeder::class]);
+        $this->get("/api/users/current", [
+                'Authorization' => 'test'
+            ])
+            ->assertStatus(200)
+            ->assertJson([
+                "data" => [
+                    "name" => "test",
+                    "username" => "test",
+                ]
+            ]);  
+    }
+
+    public function testGetInvalidToken()
+    {
+        $this->seed([UserSeeder::class]);
+        $this->get("/api/users/current", [
+                'Authorization' => 'salah'
+            ])
+            ->assertStatus(401)
+            ->assertJson([
+                "errors" =>[
+                    "message" => [
+                        "Unauthorized"
+                     ]
+                ]
+            ]);  
+    }
+
+    public function testGetUnauthorized()
+    {
+        $this->seed([UserSeeder::class]);
+        $this->get("/api/users/current")
+            ->assertStatus(401)
+            ->assertJson([
+                "errors" =>[
+                    "message" => [
+                        "Unauthorized"
+                     ]
+                ]
+            ]);  
+    }
+
+    public function testUpdatePasswordSuccess()
+    {
+        $this->seed([UserSeeder::class]);
+        $oldUser = User::where('username', 'test')->first();
+        $this->patch("/api/users/current", [
+                'password' => 'baru'
+            ],
+   [
+                'Authorization' => 'test'
+            ])
+            ->assertStatus(200)
+            ->assertJson([
+                "data" => [
+                    "name" => "test",
+                    "username" => "test",
+                ]
+            ]);  
+        $newUser = User::where('username', 'test')->first();
+        $this->assertNotEquals($oldUser->password, $newUser->password);
+    }
+
+    public function testUpdateNameSuccess()
+    {
+        $this->seed([UserSeeder::class]);
+        $oldUser = User::where('username', 'test')->first();
+        $this->patch("/api/users/current", [
+                'name' => 'Nozami'
+            ],
+   [
+                'Authorization' => 'test'
+            ])
+            ->assertStatus(200)
+            ->assertJson([
+                "data" => [
+                    "name" => "Nozami",
+                    "username" => "test",
+                ]
+            ]);  
+        $newUser = User::where('username', 'test')->first();
+        $this->assertNotEquals($oldUser->name, $newUser->name);
+    }
+
+    public function testUpdateFailed()
+    {
+        $this->seed([UserSeeder::class]);
+        $this->patch("/api/users/current", [
+                'name' => "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deleniti nulla modi quos officiis voluptate deserunt numquam, odit aliquid id voluptas?"
+            ],
+   [
+                'Authorization' => 'test'
+            ])
+            ->assertStatus(400)
+            ->assertJson([
+                "errors" => [
+                    "name" => [
+                        "The name field must not be greater than 100 characters."
+                    ]
+                ]
+            ]);  
+    }
+
+    public function testLogout()
+    {
+        $this->seed([UserSeeder::class]);
+
+        $this->delete(uri: '/api/users/logout', headers: ['Authorization' => 'test'])
+            ->assertStatus(200)
+            ->assertJson([
+                'data' => true
+            ]);
+        
+        $user = User::where('username', 'test')->first();
+        $this->assertNull($user->token);
+    }
+
+    public function testLogoutFailed()
+    {
+        $this->seed([UserSeeder::class]);
+
+        $this->delete(uri: '/api/users/logout')
+            ->assertStatus(401)
+            ->assertJson([
+                'errors' => [
+                    "message" => [
+                        "Unauthorized"
+                    ]
+                ]
+            ]);
+    }
 }
