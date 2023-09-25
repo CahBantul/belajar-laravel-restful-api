@@ -56,7 +56,7 @@
                     }
                 },
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "Success Craete Contact",
                         "content": {
                             "application/json": {

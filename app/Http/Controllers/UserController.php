@@ -40,7 +40,6 @@ class UserController extends Controller
     function login(UserLoginRequest $request): UserResource
     {
         $data = $request->validated();
-        info($data);
         $user = User::where('username', $data['username'])->first();
 
         if (!$user || !Hash::check($data['password'], $user->password)) {
@@ -73,12 +72,12 @@ class UserController extends Controller
         $data = $request->validated();
         /** @var \App\Models\User $user */
         $user = Auth::user();
-        
-        if(isset($data["name"])){
+
+        if (isset($data["name"])) {
             $user->name = $data["name"];
         }
 
-        if(isset($data["password"])){
+        if (isset($data["password"])) {
             $user->password = Hash::make($data["password"]);
         }
 
@@ -87,7 +86,7 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    function logout(Request $request) : JsonResponse 
+    function logout(Request $request): JsonResponse
     {
         /** @var \App\Models\User $user */
         $user = Auth::user();
