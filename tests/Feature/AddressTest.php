@@ -144,7 +144,6 @@ class AddressTest extends TestCase
     {
         $this->seed([UserSeeder::class, ContactSeeder::class, AddressSeeder::class]);
         $address = Address::query()->get()->first();
-        info($address);
         $this->get(
             '/api/contacts/' . $address->contact_id . '/addresses/' . $address->id,
             [
@@ -166,7 +165,6 @@ class AddressTest extends TestCase
     {
         $this->seed([UserSeeder::class, ContactSeeder::class, AddressSeeder::class]);
         $address = Address::query()->get()->first();
-        info($address);
         $this->get(
             '/api/contacts/' . $address->contact_id . '/addresses/' . $address->id + 1,
             [
@@ -186,7 +184,6 @@ class AddressTest extends TestCase
     {
         $this->seed([UserSeeder::class, ContactSeeder::class, AddressSeeder::class]);
         $address = Address::query()->get()->first();
-        info($address);
         $this->put(
             '/api/contacts/' . $address->contact_id . '/addresses/' . $address->id,
             [
@@ -215,7 +212,6 @@ class AddressTest extends TestCase
     {
         $this->seed([UserSeeder::class, ContactSeeder::class, AddressSeeder::class]);
         $address = Address::query()->get()->first();
-        info($address);
         $this->put(
             '/api/contacts/' . $address->contact_id . '/addresses/' . $address->id,
             [
@@ -245,7 +241,6 @@ class AddressTest extends TestCase
     {
         $this->seed([UserSeeder::class, ContactSeeder::class, AddressSeeder::class]);
         $address = Address::query()->get()->first();
-        info($address);
         $this->put(
             '/api/contacts/' . $address->contact_id . '/addresses/' . $address->id + 1,
             [
@@ -272,7 +267,6 @@ class AddressTest extends TestCase
     {
         $this->seed([UserSeeder::class, ContactSeeder::class, AddressSeeder::class]);
         $address = Address::query()->get()->first();
-        info($address);
         $this->delete(
             '/api/contacts/' . $address->contact_id . '/addresses/' . $address->id,
             [
@@ -291,7 +285,6 @@ class AddressTest extends TestCase
     {
         $this->seed([UserSeeder::class, ContactSeeder::class, AddressSeeder::class]);
         $address = Address::query()->get()->first();
-        info($address);
         $this->delete(
             '/api/contacts/' . $address->contact_id . '/addresses/' . $address->id + 1,
             [
